@@ -30,7 +30,8 @@ export const signUp = async (req,res) => {
 
 export const login = async (req,res)=> {
     const {email,password} = req.body;
-
+    console.log(req.body.email);
+    
     if(!email || !password){
         return res.status(400).json({
             message: "Enter email and password",
@@ -39,6 +40,8 @@ export const login = async (req,res)=> {
     }
 
     const user = await User.findOne({email});
+    console.log(user);
+    
     if(!user){
         return res.status(400).json({
             message: "User doesn't exist",
@@ -46,6 +49,8 @@ export const login = async (req,res)=> {
         })
     }
     const isPassword = await bcrypt.compare(password,user.password);
+    console.log(isPassword);
+    
     if(!isPassword){
         return res.status(400).json({
             message: "Invalid Password",
@@ -62,6 +67,8 @@ export const login = async (req,res)=> {
         {expiresIn: "1h"}
         
     )
+    console.log(token);
+    
     return res.status(200).json({
         message: "Login Successfull",
         token,

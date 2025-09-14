@@ -2,7 +2,8 @@ import Todo from "../model/todo.model.js";
 
 export const createTodo = async (req, res) => {
     const { title, description } = req.body;
-
+    console.log(req.body);
+    
     if (!title || !description) {
         return res.status(400).json({
             message: "something is missing",
